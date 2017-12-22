@@ -1,0 +1,12 @@
+.noteList {
+  min-height: 8em;
+  max-height: 10em;
+  width: 30em;
+  background-color: rgb(63, 59, 57);
+  color: #f2e5bc;
+  overflow: auto;
+  padding: .5em;
+  box-sizing: border-box;
+  outline: none;
+  margin-bottom: 2em;
+}

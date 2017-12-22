@@ -1,0 +1,10 @@
+.messageArea {
+  min-height: 48%;
+  min-width: 60%;
+  max-width: 60%;
+  max-height: 48%;
+  background-color: white;
+  overflow: auto;
+  padding: 1em;
+  box-sizing: border-box;
+}
