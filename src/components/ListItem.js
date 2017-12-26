@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import './ListItem.css';
+import { deleteNote } from '../actions/notes';
 
-export default class ListItem extends Component {
+class ListItem extends Component {
   editHandler = () => {
     console.log('edit modal open here!');
   }
@@ -12,7 +14,7 @@ export default class ListItem extends Component {
   }
 
   deleteHandler = () => {
-    console.log('delete here!');
+    this.props.dispatchDeleteNote(this.props.id);
   }
 
   render() {
@@ -24,19 +26,18 @@ export default class ListItem extends Component {
           onKeyPress={this.selectHandler}
           role="button"
           tabIndex="0"
-          tooltip="Save"
         >
-          <i className="material-icons">done</i>
+          <i className="material-icons selected">fiber_manual_record</i>
         </div>
 
         <span
+          className="notesTitle"
           onClick={this.editHandler}
           onKeyPress={this.editHandler}
           role="button"
           tabIndex="0"
-          tooltip="Edit"
         >
-          text goes here
+          { this.props.title }
         </span>
 
         <div
@@ -44,11 +45,18 @@ export default class ListItem extends Component {
           onKeyPress={this.deleteHandler}
           role="button"
           tabIndex="0"
-          tooltip="Delete"
         >
-          <i className="material-icons">clear</i>
+          <i className="material-icons delete">clear</i>
         </div>
       </main>
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    dispatchDeleteNote: deleteNote,
+  }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(ListItem);

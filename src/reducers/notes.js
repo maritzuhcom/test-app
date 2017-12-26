@@ -1,10 +1,10 @@
-import { ADD_NOTE } from '../actions/notes';
+import { ADD_NOTE, DELETE_NOTE } from '../actions/notes';
 // need {} when the thing you are importing is not being exported by default
 // dont need {} when you ARE exporting by default
 
 // this is the initial store
 const defaultState = {
-  notes: [],
+  noteList: [],
 };
 
 // TODO make the note array an object so we can select/edit/delete using keys as note IDs
@@ -14,14 +14,32 @@ export default function (state = defaultState, action = {}) {
     case ADD_NOTE: {
       // this comes from the input in Header.js
       // so Header.js --> actions/notes.js --> here
+
+      // create a random id per note
+      const newId = Math.floor(Math.random() * 100000);
+
+      // note object
+      // action.payload is the input of the user(title)
       const newNote = {
         title: action.payload,
         message: '',
         selected: true,
+        id: newId,
       };
 
-      state.notes.push(newNote);
-      return { ...state };
+      // copy state to new variable called noteList
+      const noteList = [...state.noteList];
+      // push newNote to noteList
+      noteList.unshift(newNote);
+      // return an object of new state
+      return { noteList: [...noteList] };
+    }
+    case DELETE_NOTE: {
+      // action.payload is the ID of the note we want to delete
+      // note.id is the id of every note
+      const updatedList = state.noteList.filter(note => action.payload !== note.id);
+
+      return { noteList: [...updatedList] };
     }
     default: {
       // we use the spread operator becuse we need to return a new object

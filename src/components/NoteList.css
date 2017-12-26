@@ -9,4 +9,5 @@
   box-sizing: border-box;
   outline: none;
   margin-bottom: 2em;
+  box-shadow: 5px 5px 5px rgba(0,0,0,.3);
 }
