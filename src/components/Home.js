@@ -15,6 +15,7 @@ class Home extends Component {
       key={note.id}
       title={note.title}
       id={note.id}
+      isSelected={note.id === this.props.selectedNote.id}
     />
   ))
 
@@ -43,7 +44,7 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
-  return { noteList: [...state.notes.noteList] };
+  return { noteList: [...state.notes.noteList], selectedNote: { ...state.notes.selectedNote } };
 }
 
 export default connect(mapStateToProps)(Home);

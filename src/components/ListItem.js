@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import './ListItem.css';
-import { deleteNote } from '../actions/notes';
+import { deleteNote, selectNote } from '../actions/notes';
 
 class ListItem extends Component {
   editHandler = () => {
-    console.log('edit modal open here!');
+    this.props.dispatchSelectedNote(this.props.id);
   }
 
   selectHandler = () => {
@@ -18,8 +18,11 @@ class ListItem extends Component {
   }
 
   render() {
+    // this will be truw when this listitem is selected
+    // console.log(this.props.isSelected);
+
     return (
-      <main className="listItem">
+      <main className="listItem hover-delete">
         <div
           onClick={this.selectHandler}
           className="material-icons"
@@ -27,7 +30,7 @@ class ListItem extends Component {
           role="button"
           tabIndex="0"
         >
-          <i className="material-icons selected">fiber_manual_record</i>
+          {this.props.isSelected ? <i className="material-icons selected">fiber_manual_record</i> : ''}
         </div>
 
         <span
@@ -56,6 +59,7 @@ class ListItem extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     dispatchDeleteNote: deleteNote,
+    dispatchSelectedNote: selectNote,
   }, dispatch);
 }
 

@@ -1,13 +1,12 @@
-import { ADD_NOTE, DELETE_NOTE } from '../actions/notes';
+import { ADD_NOTE, DELETE_NOTE, SELECT_NOTE, UPDATE_NOTE } from '../actions/notes';
 // need {} when the thing you are importing is not being exported by default
 // dont need {} when you ARE exporting by default
 
 // this is the initial store
 const defaultState = {
   noteList: [],
+  selectedNote: {},
 };
-
-// TODO make the note array an object so we can select/edit/delete using keys as note IDs
 
 export default function (state = defaultState, action = {}) {
   switch (action.type) {
@@ -20,10 +19,10 @@ export default function (state = defaultState, action = {}) {
 
       // note object
       // action.payload is the input of the user(title)
+      // create new object
       const newNote = {
         title: action.payload,
         message: '',
-        selected: true,
         id: newId,
       };
 
@@ -32,14 +31,23 @@ export default function (state = defaultState, action = {}) {
       // push newNote to noteList
       noteList.unshift(newNote);
       // return an object of new state
-      return { noteList: [...noteList] };
+      return { ...state, noteList: [...noteList], selectedNote: newNote };
     }
     case DELETE_NOTE: {
       // action.payload is the ID of the note we want to delete
       // note.id is the id of every note
       const updatedList = state.noteList.filter(note => action.payload !== note.id);
 
-      return { noteList: [...updatedList] };
+      return { ...state, noteList: [...updatedList] };
+    }
+    case SELECT_NOTE: {
+      const result = state.noteList.find(note => action.payload === note.id);
+      return { ...state, selectedNote: result };
+    }
+    case UPDATE_NOTE: {
+      const newState = { ...state };
+      newState.selectedNote.message = action.payload.message;
+      return { ...state };
     }
     default: {
       // we use the spread operator becuse we need to return a new object
