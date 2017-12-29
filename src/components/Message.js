@@ -15,6 +15,7 @@ class Message extends Component {
         className="messageArea"
       >
         <textarea
+          className="messageText"
           placeholder="Note Content"
           type="text"
           value={this.props.message}

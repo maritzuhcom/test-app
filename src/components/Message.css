@@ -1,10 +1,25 @@
-.messageArea {
+/* .messageArea {
   min-height: 48%;
   min-width: 60%;
   max-width: 60%;
   max-height: 48%;
-  background-color: white;
   overflow: auto;
+  box-sizing: border-box;
+  box-shadow: 5px 5px 5px rgba(0,0,0,.3);
+  background-color: rgb(63, 59, 57);
+} */
+
+.messageText {
+  min-height: 370px;
+  max-height: 370px;
+  min-width: 650px;
+  max-width: 650px;
+  font-size: 14px;
   padding: 1em;
   box-sizing: border-box;
+  box-shadow: 5px 5px 5px rgba(0,0,0,.3);
+  color: #f2e5bc;
+  background-color: rgb(63, 59, 57);
+  outline: none;
+  border: 1px solid rgba(0,0,0,.3);
 }
