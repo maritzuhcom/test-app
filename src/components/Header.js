@@ -25,7 +25,6 @@ class Header extends Component {
     if (e.nativeEvent.code !== 'Enter') {
       return;
     }
-
     // dispatch this
     // this refers to the element, prop means its inside the element
     this.props.dispatchAddNote(this.state.input); // this
